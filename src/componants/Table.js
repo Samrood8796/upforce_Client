@@ -45,7 +45,6 @@ const Table = ({ searchUsers, exportData, setExportData }) => {
             console.error(error);
         }
     };
-
     return (
         <>
             {
@@ -74,7 +73,7 @@ const Table = ({ searchUsers, exportData, setExportData }) => {
                 <nav aria-label="Page navigation example ">
                     <ul className="pagination justify-content-end p-2">
                         {
-                            currentPage === 1 ?
+                            disablePreviousButton ?
                                 <li className="page-item disabled" >
                                     <a className="page-link" tabindex="-1"><AiOutlineArrowLeft /></a>
                                 </li>

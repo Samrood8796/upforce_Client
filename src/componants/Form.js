@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import axios from '../utils/axios'
 import { toast, Toaster } from "react-hot-toast";
@@ -39,10 +39,9 @@ const Form = ({ edit }) => {
             action.resetForm()
         }
     })
-
+    const [isLoading, setIsLoading] = useState(false);
     let handleRegister = (user) => {
-        console.log("dddddddddd");
-        console.log(user);
+        setIsLoading(true);
         axios.post(register, user,
             {
                 headers: {
@@ -50,15 +49,18 @@ const Form = ({ edit }) => {
                 }
             }
         ).then((response) => {
+            setIsLoading(false);
             navigate('/')
         }).catch((err) => {
             ((error) => {
+                setIsLoading(false);
                 toast.error(error.response.data.msg, {
                     position: "top-center",
                 });
             })(err);
         })
     }
+
     return (
         <Container>
             <div className='d-flex justify-content-center py-2 align-items-center'>
@@ -72,6 +74,7 @@ const Form = ({ edit }) => {
                         </h2>
                 }
             </div>
+            {isLoading && (<div className='p-2 '><h1>loading...........</h1></div>)}
             <div>
                 <form className='shadow-lg p-3' onSubmit={handleSubmit}>
                     <div className=' d-flex justify-content-center' >

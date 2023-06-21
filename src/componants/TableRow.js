@@ -27,10 +27,13 @@ const TableRow = ({ users, setRender, render }) => {
             setRender(!render)
         })
     }
+    const [isLoading,setLoading] = useState(false)
     const handleStatus = (id, status) => {
+        setLoading(true)
         axios.put(`${changeStatus}`, { id, status }).then((response) => {
             console.log(response);
             setShowStatus(false)
+            setLoading(false)
             toast.success(response.data, {
                 position: "top-center",
             });
@@ -41,6 +44,7 @@ const TableRow = ({ users, setRender, render }) => {
         users?.length >= 1 &&
         users?.map((user, index) => (
             <>
+            {isLoading && <div>Loading.....</div>}
                 <tr>
                     <th scope="row">{index + 1}</th>
                     <td>{user.firstName}</td>
