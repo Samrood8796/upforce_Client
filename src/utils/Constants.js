@@ -1,5 +1,5 @@
-export const base_url = "http://localhost:3001/api"
-// export const base_url = "https://upforce-server.onrender.com/api"
+// export const base_url = "http://localhost:3001/api"
+export const base_url = "https://upforce-server.onrender.com/api"
 
 export const register = '/add-user'
 export const editUser = '/edit-user'
