@@ -74,7 +74,7 @@ const Form = ({ edit }) => {
                         </h2>
                 }
             </div>
-            {isLoading && (<div className='p-2 '><h1>loading...........</h1></div>)}
+            {isLoading && (<div><h2>loading...........</h2></div>)}
             <div>
                 <form className='shadow-lg p-3' onSubmit={handleSubmit}>
                     <div className=' d-flex justify-content-center' >

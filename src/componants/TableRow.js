@@ -9,9 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../utils/Constants';
 import { changeStatus } from '../utils/Constants';
 import { toast, Toaster } from "react-hot-toast";
-
 import axios from '../utils/axios';
-import { render } from '@testing-library/react';
 const TableRow = ({ users, setRender, render }) => {
     const [showMenu, setShowMenu] = useState(false)
     const [showStatus, setShowStatus] = useState(false)
@@ -27,13 +25,10 @@ const TableRow = ({ users, setRender, render }) => {
             setRender(!render)
         })
     }
-    const [isLoading,setLoading] = useState(false)
     const handleStatus = (id, status) => {
-        setLoading(true)
         axios.put(`${changeStatus}`, { id, status }).then((response) => {
             console.log(response);
             setShowStatus(false)
-            setLoading(false)
             toast.success(response.data, {
                 position: "top-center",
             });
@@ -44,7 +39,6 @@ const TableRow = ({ users, setRender, render }) => {
         users?.length >= 1 &&
         users?.map((user, index) => (
             <>
-            {isLoading && <div>Loading.....</div>}
                 <tr>
                     <th scope="row">{index + 1}</th>
                     <td>{user.firstName}</td>

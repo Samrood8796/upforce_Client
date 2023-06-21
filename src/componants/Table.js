@@ -12,6 +12,7 @@ const Table = ({ searchUsers, exportData, setExportData }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [render, setRender] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         if (searchUsers) {
@@ -22,16 +23,17 @@ const Table = ({ searchUsers, exportData, setExportData }) => {
     }, [currentPage, searchUsers, render]);
 
     const updatePagination = async () => {
+        setLoading(true)
         const data = await fetchData(currentPage);
-        console.log("data");
-        console.log(data);
         if(data.users.length == 0){
             console.log(data.users.length);
+            setLoading(false)
             return;
         }
         setUsers(data?.users);
         setTotalPages(data?.totalPages);
         setCurrentPage(data?.currentPage);
+        setLoading(false)
     };
     const disablePreviousButton = currentPage === 1;
     const disableNextButton = currentPage === totalPages;
@@ -42,6 +44,7 @@ const Table = ({ searchUsers, exportData, setExportData }) => {
             const data = await response.data
             return data;
         } catch (error) {
+            setLoading(false)
             console.error(error);
         }
     };
@@ -53,6 +56,7 @@ const Table = ({ searchUsers, exportData, setExportData }) => {
                     Download
                 </CSVLink>
             }
+            {isLoading && <div><h2> Loading..........</h2></div>}
             <div class="shadow-lg table-responsive">
                 <table className="table  ">
                     <thead className="table-dark">
